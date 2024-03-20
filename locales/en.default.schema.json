@@ -1,0 +1,69 @@
+{
+  "settings_schema": {
+    "logo": {
+      "name": "Logo",
+      "settings": {
+        "logo_image": {
+          "label": "Logo"
+        },
+        "logo_width": {
+          "label": "Desktop logo width",
+          "info": "Logo width is automatically optimized for mobile."
+        },
+        "favicon": {
+          "label": "Favicon image",
+          "info": "Will be scaled down to 32 x 32px"
+        }
+      }
+    }
+  },
+  "sections": {
+    "header": {
+      "name": "Header",
+      "settings": {
+        "menu": {
+          "label": "Menu"
+        }
+      }
+    },
+    "main-list-collections": {
+      "name": "Collections list page",
+      "settings": {
+        "title": {
+          "label": "Heading"
+        },
+        "sort": {
+          "label": "Sort collections by:",
+          "alphabetical": {
+            "label": "Alphabetically, A-Z"
+          },
+          "alphabetical_reversed": {
+            "label": "Alphabetically, Z-A"
+          },
+          "date_reversed": {
+            "label": "Date, new to old"
+          },
+          "date": {
+            "label": "Date, old to new"
+          },
+          "products_high": {
+            "label": "Product count, high to low"
+          },
+          "products_low": {
+            "label": "Product count, low to high"
+          }
+        },
+        "image_fit": {
+          "label": "Image fit",
+          "cover": {
+            "label": "Cover"
+          },
+          "contain": {
+            "label": "Contain"
+          },
+          "info": "Add images by editing your collections. [Learn more](https://help.shopify.com/manual/products/collections)"
+        }
+      }
+    }
+  }
+}

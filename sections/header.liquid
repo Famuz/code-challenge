@@ -1,0 +1,81 @@
+<header class="bg-slate-100">
+  <div class="container-full py-4 xl:flex xl:justify-between xl:items-center">
+    <div class="flex justify-between items-center">
+      <a href="{{ routes.root_url }}" aria-label="Home">
+        {% render 'logo' %}
+      </a>
+      <label for="nav-toggle-input" class="block xl:hidden">
+        <svg
+          class="w-6 h-6"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 17 12"
+          role="img"
+        >
+          <title>Toggle navigation</title>
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2" d="M1 1h15M1 6h15M1 11h15"
+          />
+        </svg>
+      </label>
+    </div>
+    <input
+      id="nav-toggle-input"
+      type="checkbox"
+      class="peer sr-only"
+      aria-labelledby="nav-toggle-label"
+      aria-controls="header-navigation"
+    >
+    <nav
+      id="header-navigation"
+      class="w-full xl:w-auto overflow-hidden hidden xl:block peer-checked:block"
+      aria-describedby="nav-toggle-label"
+    >
+      {%- if section.settings.menu != blank -%}
+        <ul class="xl:flex gap-5 text-center">
+          {%- for link in section.settings.menu.links -%}
+            <li class="py-3 xl:py-0">
+              <a
+                class="hover:underline"
+                href="{{ link.url }}"
+                {%- if link.active -%}
+                  aria-current="page"
+                {%- endif -%}
+              >
+                {{- link.title -}}
+              </a>
+            </li>
+          {%- endfor -%}
+            <li class="py-3 xl:py-0">
+              <button class="flex gap-2" id="btn-cart">
+                Cart
+                <div>
+                  {%- if cart.item_count < 100 -%}
+                    <span class="cart-count" aria-hidden="true">{{ cart.item_count }}</span>
+                  {%- endif -%}
+                </div>
+                
+              </button>
+            </li>
+        </ul>
+      {%- endif -%}
+    </nav>
+  </div>
+</header>
+{% schema %}
+{
+  "name": "t:sections.header.name",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "default": "main-menu",
+      "label": "t:sections.header.settings.menu.label"
+    }
+  ]
+}
+{% endschema %}

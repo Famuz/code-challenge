@@ -1,0 +1,113 @@
+<section class="h-full flex flex-col container mx-auto max-w-6xl">
+  <div class="pb-20 pt-0 lg:pt-24 max-w-7xl flex flex-col md:flex-row md:justify-around md:items-center">
+    <div class="md:max-w-md md:ml-6">
+      <div class="mb-4 w-screen md:max-w-md relative overflow-hidden md:rounded-xl">
+        <img
+          srcset="{%- if product.featured_image.width >= 165 -%}{{ product.featured_image | image_url: width: '165' }} 165w,{%- endif -%}
+          {%- if product.featured_image.width >= 360 -%}{{ product.featured_image | image_url: width: '360' }} 360w,{%- endif -%}
+          {%- if product.featured_image.width >= 535 -%}{{ product.featured_image | image_url: width: '535' }} 535w,{%- endif -%}
+          {%- if product.featured_image.width >= 750 -%}{{ product.featured_image | image_url: width: '750' }} 750w,{%- endif -%}
+          {%- if product.featured_image.width >= 1070 -%}{{ product.featured_image | image_url: width: '1070' }} 1070w,{%- endif -%}
+          {%- if product.featured_image.width >= 1500 -%}{{ product.featured_image | image_url: width: '1500' }} 1500w,{%- endif -%}
+          {{ product.featured_image| image_url: width: product.featured_image.width }} {{ product.featured_image.width }}w"
+              src="{{ product.featured_image | image_url: width: product.featured_image.width }}"
+          alt="{{ product.featured_image.alt | escape }}"
+          loading="lazy"
+          width="{{ product.featured_image.width }}"
+          height="{{ product.featured_image.height }}"
+        >
+      </div>
+    </div>
+    <div class="p-6 max-w-lg">
+      <h1 class="mb-4 text-3xl md:text-5xl font-bold text-gray-900">{{ product.title }}</h1>
+      <p class="mb-4 text-[15px] md:text-base text-gray-600">{{ product.description | strip_html }}</p>
+      <div class="flex justify-between items-center md:flex-wrap mb-4">
+        <strong class="text-3xl text-gray-600">{{ product.price | money }}</strong>
+      </div>
+      {% form 'product'
+        , product %}
+        <div class="flex items-center gap-4 mb-4">
+          <label>Options</label>
+          <select class="w-[40%] p-2 border-none rounded-lg bg-gray-200 text-center" name="id">
+            {% for variant in product.variants %}
+              <option
+                {% if selectedVariant.id == variant.id %}
+                selected
+                {% endif %}
+                value="{{ variant.id }}">
+                {{ variant.title }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="">
+          <button type="submit" class="h-12 px-4 md:basis-6/12 relative text-gray-600 bg-gray-200 shadow-glow font-bold flex justify-center items-center rounded-lg transition-colors duration-300 hover:bg-gray-250">
+            <svg class="mr-3 ml-1 w-4 h-4" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="facebook-f" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 20"><path d="M20.925 3.641H3.863L3.61.816A.896.896 0 0 0 2.717 0H.897a.896.896 0 1 0 0 1.792h1l1.031 11.483c.073.828.52 1.726 1.291 2.336C2.83 17.385 4.099 20 6.359 20c1.875 0 3.197-1.87 2.554-3.642h4.905c-.642 1.77.677 3.642 2.555 3.642a2.72 2.72 0 0 0 2.717-2.717 2.72 2.72 0 0 0-2.717-2.717H6.365c-.681 0-1.274-.41-1.53-1.009l14.321-.842a.896.896 0 0 0 .817-.677l1.821-7.283a.897.897 0 0 0-.87-1.114ZM6.358 18.208a.926.926 0 0 1 0-1.85.926.926 0 0 1 0 1.85Zm10.015 0a.926.926 0 0 1 0-1.85.926.926 0 0 1 0 1.85Zm2.021-7.243-13.8.81-.57-6.341h15.753l-1.383 5.53Z" fill="currentColor" fill-rule="nonzero"></path></svg>
+            Add to cart
+          </button>
+        </div>
+      {% endform %}
+      
+      <div class="">
+        {% if product.metafields.custom.metafield_one != blank %}
+          <div class="">
+            {{ product.metafields.custom.metafield_one.value }}
+          </div>
+        {% endif %}
+        {% if product.metafields.custom.metafield_two != blank %}
+          <div class="">
+            {{ product.metafields.custom.metafield_two.value }}
+          </div>
+        {% endif %}
+        {% if section.settings.more_information %}
+          <div class="">
+            {{ section.settings.more_information | strip_html }}
+          </div>
+        {% endif %}
+      </div>
+      {% if product.metafields.custom.similar_product != blank %}
+        <div class="">
+          <h3 class="">Similar Product</h3>
+          <div class="">
+            <a href="{{ product.metafields.custom.similar_product.value.url }}">
+              <img
+                srcset="{%- if product.metafields.custom.similar_product.value.width >= 165 -%}{{ product.metafields.custom.similar_product.value | image_url: width: '165' }} 165w,{%- endif -%}
+            {%- if product.metafields.custom.similar_product.value.width >= 360 -%}{{ product.metafields.custom.similar_product.value | image_url: width: '360' }} 360w,{%- endif -%}
+            {%- if product.metafields.custom.similar_product.value.width >= 535 -%}{{ product.metafields.custom.similar_product.value | image_url: width: '535' }} 535w,{%- endif -%}
+            {%- if product.metafields.custom.similar_product.value.width >= 750 -%}{{ product.metafields.custom.similar_product.value | image_url: width: '750' }} 750w,{%- endif -%}
+            {%- if product.metafields.custom.similar_product.value.width >= 1070 -%}{{ product.metafields.custom.similar_product.value | image_url: width: '1070' }} 1070w,{%- endif -%}
+            {%- if product.metafields.custom.similar_product.value.width >= 1500 -%}{{ product.metafields.custom.similar_product.value | image_url: width: '1500' }} 1500w,{%- endif -%}
+            {{ product.metafields.custom.similar_product.value| image_url: width: product.metafields.custom.similar_product.value.width }} {{ product.metafields.custom.similar_product.value.width }}w"
+                src="{{ product.metafields.custom.similar_product.value | image_url: width: product.metafields.custom.similar_product.value.width }}"
+                alt="{{ product.metafields.custom.similar_product.value.alt | escape }}"
+                loading="lazy"
+                width="{{ product.metafields.custom.similar_product.value.width }}"
+                height="{{ product.metafields.custom.similar_product.value.height }}">
+            </a>
+            <h3>{{ product.metafields.custom.similar_product.value.title }}</h3>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Main Product",
+    "tag": "section",
+    "class": "section",
+    "settings": [
+      {
+        "type": "richtext",
+        "id": "more_information",
+        "label": "More information from Section schema"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Main Product"
+      }
+    ]
+  }
+{% endschema %}

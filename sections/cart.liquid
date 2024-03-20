@@ -1,0 +1,59 @@
+<div class="cart-drawer hidden md:w-[45vw] flex-col absolute right-4 left-4 top-[40vh] md:left-[unset] md:top-24 bg-gray-200 rounded-xl shadow-large z-20">
+  <div class="cart-drawer-box p-4 font-bold text-gray-900">
+    <header class="flex items-center p-6 border-b border-solid border-gray-400">
+      <h2 class="text-gray-900 flex-1 font-semibold text-lg">Cart</h2>
+    </header>
+    {% form 'cart'
+      , cart %}
+      {% if cart.item_count == 0 %}
+        <div class="p-4 text-gray-900 font-bold">
+          <p class="py-16 text-center">Your cart is empty.</p>
+        </div>
+      {% else %}
+        <div class="p-6">
+          <div id="cart-items" class="mb-6">
+            {% for item in cart.items %}
+              <div class="flex items-center border border-solid border-gray-400 rounded-xl overflow-hidden mt-3">
+                <div class="object-cover">
+                  <img
+                    src="{{ item.image | image_url: width: 300 }}"
+                    alt="{{ item.image.alt | escape }}"
+                    loading="lazy"
+                    width="150"
+                    height="{{ 150 | divided_by: item.image.aspect_ratio | ceil }}">
+                </div>
+                <div class="flex-1 py-0 px-6">
+                  <div class="flex items-center gap-5">
+                    <div class="flex-1">
+                      <h3 class="text-xl font-semibold">
+                        <a class="text-gray-900" href={{ item.url }}>{{ item.product.title }}</a>
+                      </h3>
+                      <span class="text-base text-gray-600 font-semibold">{{ item.variant.title }}</span>
+                    </div>
+                    <div class="inline-flex border border-solid border-gray-600 mt-4">
+                      <button class="w-7 flex items-center justify-center cursor-pointer select-none" type="button">{% render "minus" %}</button>
+                      <input
+                        class="w-7 text-sm text-center leading-6 border-l border-solid border-gray-400"
+                        type="text"
+                        readonly
+                        value={{ item.quantity }} />
+                      <button class="w-7 flex items-center justify-center cursor-pointer select-none" type="button">{% render "plus" %}</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+          <p>{{ cart.total_discount | money }}</p>
+          <p>{{ cart.total_price | money }}</p>
+          <button
+            type="submit"
+            name="checkout"
+            class="h-12 w-full px-4 text-gray-200 bg-gray-900 font-bold rounded-lg transition-colors duration-300 hover:bg-gray-250">
+            Checkout
+          </button>
+        </div>
+      {% endif %}
+    {% endform %}
+  </div>
+</div>
